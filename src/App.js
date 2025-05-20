@@ -238,7 +238,7 @@ export default function App() {
     <h1>🧠 Cloud Assistant</h1>
     <div className="chat-actions">
       <button className="button" onClick={handleSignOut}>Sign Out</button>
-      <button className="button secondary" onClick={fetchHistory}>History</button>
+      <button className="button secondary" onClick={fetchHistory}>This is an edit</button>
     </div>
   </header>
 
