@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import awsmobile from './aws-exports';
+import awsExports from './aws-exports';
 import {
   signIn,
   signOut,
@@ -17,7 +17,7 @@ import { listConversations } from './graphql/queries';
 import LexChat from './lexchat';
 import './styles.css';
 
-Amplify.configure(awsmobile);
+Amplify.configure(awsExports);
 const client = generateClient();
 
 export default function App() {
@@ -141,144 +141,129 @@ export default function App() {
 
   if (!user) {
     return (
-      <div className="container">
-        {!resetMode ? (
-          <>
-            <h2 className="center-text">{signUpMode ? 'Sign Up' : 'Sign In'}</h2>
+<div className="auth-wrapper">
+  <div className="auth-card">
+    <h2>{resetMode ? '🔑 Reset Password' : signUpMode ? '📝 Sign Up' : '🔐 Sign In'}</h2>
 
-            <input
-              className="input"
-              type="email"
-              placeholder="Email"
-              value={signUpMode ? signUpForm.username : form.username}
-              onChange={e =>
-                signUpMode
-                  ? setSignUpForm(f => ({ ...f, username: e.target.value }))
-                  : setForm(f => ({ ...f, username: e.target.value }))
-              }
-            />
-
-            <input
-              className="input"
-              type="password"
-              placeholder="Password"
-              value={signUpMode ? signUpForm.password : form.password}
-              onChange={e =>
-                signUpMode
-                  ? setSignUpForm(f => ({ ...f, password: e.target.value }))
-                  : setForm(f => ({ ...f, password: e.target.value }))
-              }
-            />
-
-            {signUpMode && signUpForm.step === 2 && (
-              <input
-                className="input"
-                placeholder="Verification Code"
-                value={signUpForm.code}
-                onChange={e =>
-                  setSignUpForm(f => ({ ...f, code: e.target.value }))
-                }
-              />
-            )}
-
-            {signUpMode ? (
-              signUpForm.step === 1 ? (
-                <button className="button" onClick={handleSignUp}>
-                  Register
-                </button>
-              ) : (
-                <button className="button" onClick={handleConfirmSignUp}>
-                  Confirm Code
-                </button>
-              )
-            ) : (
-              <button className="button" onClick={handleSignIn}>
-                Sign In
-              </button>
-            )}
-
-            <p className="center-text">
-              <span className="link" onClick={() => setResetMode(true)}>
-                Forgot Password?
-              </span>
-              <br />
-              <span
-                className="link-alt"
-                onClick={() => {
-                  setSignUpMode(!signUpMode);
-                  setSignUpForm({ username: '', password: '', code: '', step: 1 });
-                }}
-              >
-                {signUpMode ? 'Already have an account? Sign In' : 'New user? Sign Up'}
-              </span>
-            </p>
-          </>
-        ) : (
-          <>
-            <h2 className="center-text">Reset Password</h2>
-            <input
-              className="input"
-              placeholder="Email"
-              value={resetData.username}
-              onChange={e => setResetData(d => ({ ...d, username: e.target.value }))}
-            />
-            <button className="button" onClick={handleSendResetCode}>
-              Send Code
-            </button>
-            <input
-              className="input"
-              placeholder="Verification Code"
-              value={resetData.code}
-              onChange={e => setResetData(d => ({ ...d, code: e.target.value }))}
-            />
-            <input
-              className="input"
-              type="password"
-              placeholder="New Password"
-              value={resetData.newPassword}
-              onChange={e => setResetData(d => ({ ...d, newPassword: e.target.value }))}
-            />
-            <button className="button" onClick={handleConfirmNewPassword}>
-              Confirm Reset
-            </button>
-            <p className="center-text">
-              <span className="link" onClick={() => setResetMode(false)}>
-                Back to Sign In
-              </span>
-            </p>
-          </>
+    {!resetMode ? (
+      <>
+        <input
+          type="email"
+          placeholder="Email"
+          className="input"
+          value={signUpMode ? signUpForm.username : form.username}
+          onChange={e =>
+            signUpMode
+              ? setSignUpForm(f => ({ ...f, username: e.target.value }))
+              : setForm(f => ({ ...f, username: e.target.value }))
+          }
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="input"
+          value={signUpMode ? signUpForm.password : form.password}
+          onChange={e =>
+            signUpMode
+              ? setSignUpForm(f => ({ ...f, password: e.target.value }))
+              : setForm(f => ({ ...f, password: e.target.value }))
+          }
+        />
+        {signUpMode && signUpForm.step === 2 && (
+          <input
+            className="input"
+            placeholder="Verification Code"
+            value={signUpForm.code}
+            onChange={e => setSignUpForm(f => ({ ...f, code: e.target.value }))}
+          />
         )}
-      </div>
+
+        {signUpMode ? (
+          signUpForm.step === 1 ? (
+            <button className="button primary" onClick={handleSignUp}>Register</button>
+          ) : (
+            <button className="button primary" onClick={handleConfirmSignUp}>Confirm Code</button>
+          )
+        ) : (
+          <button className="button primary" onClick={handleSignIn}>Sign In</button>
+        )}
+
+        <div className="auth-links">
+          <span onClick={() => setResetMode(true)}>Forgot Password?</span>
+          <span onClick={() => {
+            setSignUpMode(!signUpMode);
+            setSignUpForm({ username: '', password: '', code: '', step: 1 });
+          }}>
+            {signUpMode ? 'Already have an account? Sign In' : 'New user? Sign Up'}
+          </span>
+        </div>
+      </>
+    ) : (
+      <>
+        <input
+          className="input"
+          placeholder="Email"
+          value={resetData.username}
+          onChange={e => setResetData(d => ({ ...d, username: e.target.value }))}
+        />
+        <button className="button primary" onClick={handleSendResetCode}>Send Code</button>
+        <input
+          className="input"
+          placeholder="Verification Code"
+          value={resetData.code}
+          onChange={e => setResetData(d => ({ ...d, code: e.target.value }))}
+        />
+        <input
+          className="input"
+          type="password"
+          placeholder="New Password"
+          value={resetData.newPassword}
+          onChange={e => setResetData(d => ({ ...d, newPassword: e.target.value }))}
+        />
+        <button className="button primary" onClick={handleConfirmNewPassword}>Confirm Reset</button>
+        <div className="auth-links">
+          <span onClick={() => setResetMode(false)}>Back to Sign In</span>
+        </div>
+      </>
+    )}
+  </div>
+</div>
+
     );
   }
 
   return (
-    <div className="main">
-      <h1 className="center-text">🧠 Cloud Assistant</h1>
-      <div className="center-text" style={{ marginBottom: 20 }}>
-        <button className="button" onClick={handleSignOut}>Sign Out</button>
-        <button className="button secondary" onClick={fetchHistory} style={{ marginTop: 10 }}>
-          Load Conversation History
-        </button>
-      </div>
-
-      <div className="card">
-        <LexChat />
-      </div>
-
-      <div className="history">
-        <h3>🕓 Conversation History</h3>
-        {conversations.length === 0 ? (
-          <p>No conversation history loaded yet.</p>
-        ) : (
-          conversations.map((c, i) => (
-            <div key={i} className="history-item">
-              <div><strong>You:</strong> {c.userMessage}</div>
-              <div><strong>Bot:</strong> {c.botResponse}</div>
-            </div>
-          ))
-        )}
-      </div>
+   <div className="chat-wrapper">
+  <header className="chat-header">
+    <h1>🧠 Cloud Assistant</h1>
+    <div className="chat-actions">
+      <button className="button" onClick={handleSignOut}>Sign Out</button>
+      <button className="button secondary" onClick={fetchHistory}>History</button>
     </div>
+  </header>
+
+  <div className="chat-panel">
+    <div className="chat-window">
+      <LexChat />
+    </div>
+
+    <div className="chat-history">
+      <h3>🕓 Conversation History</h3>
+      {conversations.length === 0 ? (
+        <p className="faint">No conversation history loaded yet.</p>
+      ) : (
+        <div className="chat-scroll">
+          {conversations.map((c, i) => (
+            <div key={i} className="chat-bubble-group">
+              <div className="bubble user"><strong>You:</strong> {c.userMessage}</div>
+              <div className="bubble bot"><strong>Bot:</strong> {c.botResponse}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
+
   );
 }
