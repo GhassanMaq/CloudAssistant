@@ -25,7 +25,8 @@ jobs:
         run: npm install -g @aws-amplify/cli
 
       - name:  Pull Amplify backend
-        run: amplify pull --yes --appId ${{ secrets.AMPLIFY_APP_ID }} --envName ${{ secrets.AMPLIFY_ENV }} --accessToken ${{ secrets.AMPLIFY_ACCESS_TOKEN }}
+        run: amplify init --yes --appId ${{ secrets.AMPLIFY_APP_ID }} --envName ${{ secrets.AMPLIFY_ENV }} 
+
       - name: Install dependencies
         run: npm ci
 
