@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+import awsmobile from './aws-exports';
 import {
   signIn,
   signOut,
@@ -17,7 +17,7 @@ import { listConversations } from './graphql/queries';
 import LexChat from './lexchat';
 import './styles.css';
 
-Amplify.configure(awsExports);
+Amplify.configure(awsmobile);
 const client = generateClient();
 
 export default function App() {

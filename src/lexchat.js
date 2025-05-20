@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { LexRuntimeV2Client, RecognizeTextCommand } from '@aws-sdk/client-lex-runtime-v2'
 import { fetchAuthSession } from '@aws-amplify/auth'
-import awsExports from './aws-exports'
+import awsmobile from './aws-exports'
 import { generateClient } from '@aws-amplify/api'
 import { graphqlOperation } from '@aws-amplify/api-graphql'
 import { createConversation } from './graphql/mutations'
@@ -9,7 +9,7 @@ import { createConversation } from './graphql/mutations'
 const appsync = generateClient()
 
 const lex = new LexRuntimeV2Client({
-  region: awsExports.lex.region,
+  region: awsmobile.lex.region,
   credentials: async () => {
     const session = await fetchAuthSession()
     return session.credentials
@@ -34,9 +34,9 @@ export default function LexChat() {
 
     try {
       const cmd = new RecognizeTextCommand({
-        botId: awsExports.lex.botId,
-        botAliasId: awsExports.lex.botAliasId,
-        localeId: awsExports.lex.localeId,
+        botId: awsmobile.lex.botId,
+        botAliasId: awsmobile.lex.botAliasId,
+        localeId: awsmobile.lex.localeId,
         sessionId: `user-${Date.now()}`,
         text
       })
