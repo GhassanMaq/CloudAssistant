@@ -73,7 +73,7 @@ export default function LexChat() {
         height: 300,
         overflowY: 'auto',
         border: '1px solid #ccc',
-        padding: 10,
+        padding: 9,
         borderRadius: 6
       }}>
         {messages.map((msg, index) => (
