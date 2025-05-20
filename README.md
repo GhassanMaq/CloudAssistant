@@ -11,53 +11,23 @@ The Cloud Assistant is a web application that provides a conversational interfac
 ## Architecture Diagram
 
 Architecture Diagram:
-+-----------------+
-|                 |
-|  Amazon Cognito |
-|                 |
-+--------+--------+
-         |
-         | User Authentication
-         |
-+------v-------+
-|              |
-|  AWS Amplify |
-|  (React.js)  |
-|              |
-+------+-------+
-        | |
-        | | User Input
-        | |
-+------v-------+
-|              |
-|  Amazon Lex  |
-|              |
-+------+-------+
-        | |
-        | | Intent Fulfillment
-        | |
-+------v-------+      +-----------------+
-|              |----->|  AWS Lambda     |
-|  GraphQL API |      |                 |
-| (AWS AppSync) |      +--------+--------+
-|              |             |
-+------+-------+             | AWS SDK
-        |                      |
-        |                      |
-        |                      v
-        |                   +--------+
-        |                   |  AWS   |
-        |                   |Services|
-        |                   +--------+
-        |
-        | Data Persistence
-+------v-------+
-|              |
-|  DynamoDB     |
-|              |
-+--------------+
-
-## Step-by-Step Installation Instructions
++-----------------+         User Authentication         +-----------------+         Intent Fulfillment         +-----------------+         Data Persistence
+|  Amazon Cognito |------------------------------------->|  AWS Amplify (React.js)  |------------------------------------->|  Amazon Lex  |------------------------------------->|  AWS Lambda     |------------------------------------->|  DynamoDB     |
++-----------------+         Frontend                    +-----------------+         Natural Language Processing         +-----------------+         Backend Logic             +-----------------+
+                                                                 |
+                                                                 | User Input
+                                                                 |
+                                                                 v
+                                                         +--------------+
+                                                         | GraphQL API  |
+                                                         | (AWS AppSync)|
+                                                         +--------------+
+                                                                 |
+                                                                 | AWS SDK
+                                                                 |
+                                                                 v
+                                                         +--------------+
+                                                         | AWS Services |## Step-by-Step Installation Instructions
 
 1.  **Prerequisites:**
 
