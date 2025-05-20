@@ -1,0 +1,17 @@
+type User @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  username: String!
+  conversations: [Conversation] @hasMany
+}
+
+type Conversation
+  @model
+  @auth(rules: [
+    { allow: owner },                            
+    { allow: private, operations: [create] }    
+  ]) {
+  id: ID!
+  userMessage: String!
+  botResponse: String!
+  createdAt: AWSDateTime
+}
