@@ -28,7 +28,7 @@ jobs:
         run: amplify init --yes --appId ${{ secrets.AMPLIFY_APP_ID }} --envName ${{ secrets.AMPLIFY_ENV }} 
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build the project
         run: npm run build
