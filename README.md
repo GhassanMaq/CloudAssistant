@@ -11,23 +11,8 @@ The Cloud Assistant is a web application that provides a conversational interfac
 ## Architecture Diagram
 
 Architecture Diagram:
-+-----------------+         User Authentication         +-----------------+         Intent Fulfillment         +-----------------+         Data Persistence
-|  Amazon Cognito |------------------------------------->|  AWS Amplify (React.js)  |------------------------------------->|  Amazon Lex  |------------------------------------->|  AWS Lambda     |------------------------------------->|  DynamoDB     |
-+-----------------+         Frontend                    +-----------------+         Natural Language Processing         +-----------------+         Backend Logic             +-----------------+
-                                                                 |
-                                                                 | User Input
-                                                                 |
-                                                                 v
-                                                         +--------------+
-                                                         | GraphQL API  |
-                                                         | (AWS AppSync)|
-                                                         +--------------+
-                                                                 |
-                                                                 | AWS SDK
-                                                                 |
-                                                                 v
-                                                         +--------------+
-                                                         | AWS Services |## Step-by-Step Installation Instructions
+![image](https://github.com/user-attachments/assets/dde863e5-8f28-4d46-8fd0-230d1a7678fd)
+
 
 1.  **Prerequisites:**
 
