@@ -10,51 +10,52 @@ The Cloud Assistant is a web application that provides a conversational interfac
 
 ## Architecture Diagram
 
-Architecture Diagram:                              +-----------------+
-                              |                 |
-                              |  Amazon Cognito |
-                              |                 |
-                              +--------+--------+
-                                     |
-                                     | User Authentication
-                                     |
-                              +------v-------+
-                              |              |
-                              |  AWS Amplify |
-                              |  (React.js)  |
-                              |              |
-                              +------+-------+
-                                     | |
-                                     | | User Input
-                                     | |
-                              +------v-------+
-                              |              |
-                              |  Amazon Lex  |
-                              |              |
-                              +------+-------+
-                                     | |
-                                     | | Intent Fulfillment
-                                     | |
-                              +------v-------+      +-----------------+
-                              |              |----->|  AWS Lambda     |
-                              |  GraphQL API |      |                 |
-                              | (AWS AppSync) |      +--------+--------+
-                              |              |             |
-                              +------+-------+             | AWS SDK
-                                     |                      |
-                                     |                      |
-                                     |                      v
-                                     |                   +--------+
-                                     |                   |  AWS   |
-                                     |                   |Services|
-                                     |                   +--------+
-                                     |
-                                     | Data Persistence
-                              +------v-------+
-                              |              |
-                              |  DynamoDB     |
-                              |              |
-                              +--------------+
+Architecture Diagram:
++-----------------+
+|                 |
+|  Amazon Cognito |
+|                 |
++--------+--------+
+         |
+         | User Authentication
+         |
++------v-------+
+|              |
+|  AWS Amplify |
+|  (React.js)  |
+|              |
++------+-------+
+        | |
+        | | User Input
+        | |
++------v-------+
+|              |
+|  Amazon Lex  |
+|              |
++------+-------+
+        | |
+        | | Intent Fulfillment
+        | |
++------v-------+      +-----------------+
+|              |----->|  AWS Lambda     |
+|  GraphQL API |      |                 |
+| (AWS AppSync) |      +--------+--------+
+|              |             |
++------+-------+             | AWS SDK
+        |                      |
+        |                      |
+        |                      v
+        |                   +--------+
+        |                   |  AWS   |
+        |                   |Services|
+        |                   +--------+
+        |
+        | Data Persistence
++------v-------+
+|              |
+|  DynamoDB     |
+|              |
++--------------+
 
 ## Step-by-Step Installation Instructions
 
